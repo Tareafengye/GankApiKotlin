@@ -5,8 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.util.Log;
 
-import com.ys.myapplication.BuildConfig;
-import com.ys.myapplication.app.App;
+
+import com.ys.gankapikotlin.app.App;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -28,11 +28,11 @@ public class StaticUtils {
      * @param msg 日志内容
      */
     public static void logi(String msg){
-        if(BuildConfig.DEBUG){
-            Log.i("myout", "---myout---------------------------------------------------");
-            Log.i("myout", "|\t"+line()+"\t\t"+msg);
-            Log.i("myout", "-----------------------------------------------------------");
-        }
+//        if(BuildConfig.DEBUG){
+//            Log.i("myout", "---myout---------------------------------------------------");
+//            Log.i("myout", "|\t"+line()+"\t\t"+msg);
+//            Log.i("myout", "-----------------------------------------------------------");
+//        }
     }
 
     /**
@@ -40,11 +40,11 @@ public class StaticUtils {
      * @param msg 日志内容
      */
     public static void loge(String msg){
-        if(BuildConfig.DEBUG){
-            Log.e("myout_error", "---error---------------------------------------------------");
-            Log.e("myout_error", "|\t"+line()+"\t\t"+msg);
-            Log.e("myout_error", "-----------------------------------------------------------");
-        }
+//        if(BuildConfig.DEBUG){
+//            Log.e("myout_error", "---error---------------------------------------------------");
+//            Log.e("myout_error", "|\t"+line()+"\t\t"+msg);
+//            Log.e("myout_error", "-----------------------------------------------------------");
+//        }
     }
     public static String line() {
         StackTraceElement ste = new Throwable().getStackTrace()[2];
