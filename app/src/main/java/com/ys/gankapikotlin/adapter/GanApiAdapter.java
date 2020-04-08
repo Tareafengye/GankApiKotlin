@@ -1,6 +1,7 @@
 package com.ys.gankapikotlin.adapter;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -31,7 +32,7 @@ public class GanApiAdapter extends BaseRecyclerAdapter<GankApiModel.DataBean> {
         super(context, mData, mLayoutId);
         this.mContext = context;
         for (int i = 0; i < mData.size(); i++) {
-            int x = new Random().nextInt(200) + 200;
+            int x = new Random().nextInt((DensityUtil.getScreenWidth(mContext) - 8 * 2)) + 200;
             height.add(x);
         }
 
@@ -41,13 +42,15 @@ public class GanApiAdapter extends BaseRecyclerAdapter<GankApiModel.DataBean> {
     protected void convert(RecycleViewHolder holder, GankApiModel.DataBean item, int position) {
 
         ImageView img_recycle = holder.getView(R.id.img_recycle);
+        holder.setText(R.id.tv_gank_context,item.getDesc());
         //获取item高度
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) img_recycle.getLayoutParams();
-        float itemWidth = (DensityUtil.getScreenWidth(mContext) - 8 * 3) / 2;
-        params.width = (int) itemWidth;
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) img_recycle.getLayoutParams();
+//        float itemWidth = (DensityUtil.getScreenWidth(mContext) - 8 * 2) ;
+//        params.width = (int) itemWidth;
+//        params.height = height.get(position);
+        ViewGroup.LayoutParams params = img_recycle.getLayoutParams();
         params.height = height.get(position);
-//        float scale=
-//        img_recycle.setLayoutParams(params);
+        img_recycle.setLayoutParams(params);
         Glide.with(mContext).load(item.getUrl()).into(img_recycle);
     }
 }
