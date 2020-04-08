@@ -7,5 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!--等比例缩放控件-->
+    <declare-styleable name="LoweImageView">
 
+        <!-- 比例=宽/高 -->
+        <attr name="ratio" format="float" />
+    </declare-styleable>
 </resources>

@@ -2,6 +2,7 @@ package com.ys.gankapikotlin.rxjava.api;
 
 
 import com.ys.gankapikotlin.model.GankApiModel;
+import com.ys.gankapikotlin.model.GankBeanModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -21,4 +22,10 @@ public interface ApiService {
      */
     @GET("data/category/Girl/type/Girl/page/{path}/count/10")
     Observable<GankApiModel> gankApi(@Path("path") int path);
+
+    /**
+     * 轮播
+     */
+    @GET("banners")
+    Observable<GankBeanModel> gankBanner();
 }

@@ -15,6 +15,7 @@ import com.ys.gankapikotlin.holder.RecycleViewHolder;
 import com.ys.gankapikotlin.model.GankApiModel;
 import com.ys.gankapikotlin.utils.DensityUtil;
 import com.ys.gankapikotlin.utils.GlideImageUtils;
+import com.ys.gankapikotlin.utils.ImageLoader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.Random;
  */
 public class GanApiAdapter extends BaseRecyclerAdapter<GankApiModel.DataBean> {
     private Context mContext;
-    private List<Integer> height = new ArrayList<>();
+    private ImageLoader.Builder loader;
 
     public GanApiAdapter(Context context, List<GankApiModel.DataBean> mData, int mLayoutId) {
         super(context, mData, mLayoutId);
@@ -47,19 +48,7 @@ public class GanApiAdapter extends BaseRecyclerAdapter<GankApiModel.DataBean> {
         int x = new Random().nextInt((DensityUtil.getScreenWidth(mContext) - 4 * 2)) + 200;
         ViewGroup.LayoutParams params = img_recycle.getLayoutParams();
         params.height = x;
-
         img_recycle.setLayoutParams(params);
-        RequestOptions options = new RequestOptions()
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher);
-        //把图片缓存在本地，优先加载本地，不消耗流量
-
-        File file = new GlideImageUtils(mContext).getCacheFile(item.getUrl());
-        if (null!=file) {
-            Glide.with(mContext).load(file).apply(options).into(img_recycle);
-        }else {
-            Glide.with(mContext).load(item.getUrl()).apply(options).into(img_recycle);
-        }
+        ImageLoader.createBuilder(mContext).setImgUrl(item.getUrl()).setImageView(img_recycle).onCreate();
     }
 }
