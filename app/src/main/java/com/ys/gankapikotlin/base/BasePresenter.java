@@ -83,7 +83,7 @@ public class BasePresenter <V extends IView> implements IPresenter<V> {
                     @Override
                     public void onError(Throwable e) {
                         if (getV() != null) {
-//                            listener.onFailed(e);
+                            listener.onFailed(e);
                             onFailed(e);
                         }
                     }
@@ -127,7 +127,7 @@ public class BasePresenter <V extends IView> implements IPresenter<V> {
                     public void onError(Throwable e) {
                         if (getV() != null) {
                             onFailed(e);
-//                            listener.onFailed(e);
+                            listener.onFailed(e);
                         }
                     }
 
@@ -159,6 +159,6 @@ public class BasePresenter <V extends IView> implements IPresenter<V> {
     public interface OnRespListener<M> {
         void onSuccess(M value);
 
-//        void onFailed(Throwable e);
+        void onFailed(Throwable e);
     }
 }
