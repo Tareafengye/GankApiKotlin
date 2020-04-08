@@ -1,17 +1,31 @@
 package com.ys.gankapikotlin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ys.gankapikotlin.adapter.GanApiAdapter;
 import com.ys.gankapikotlin.base.BaseActivity;
 import com.ys.gankapikotlin.model.GankApiModel;
 import com.ys.gankapikotlin.mvp.presenter.GankApiPresenter;
+import com.ys.gankapikotlin.utils.SystemBarHelper;
+
+import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<GankApiPresenter> {
 
+
+    @BindView(R.id.view_height)
+    View mHeight;
+
+    @BindView(R.id.recycle_gank)
+    RecyclerView mRecycleGank;
+    private GanApiAdapter adapter;
 
 
     @Override
@@ -22,10 +36,14 @@ public class MainActivity extends BaseActivity<GankApiPresenter> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
+
     }
 
     @Override
     public void initData() {
+//        mTvGank = findViewById(R.id.tv_gank);
+        SystemBarHelper.setHeightAndPadding(this, mHeight);
+        SystemBarHelper.immersiveStatusBar(this, 0f);
         getP().userGankApi(1);
     }
 
@@ -33,8 +51,15 @@ public class MainActivity extends BaseActivity<GankApiPresenter> {
     public void initListener() {
 
     }
-    public void onGankAPiData(GankApiModel model){
-        Toast.makeText(this, model.getPage()+"", Toast.LENGTH_SHORT).show();
+
+    public void onGankAPiData(GankApiModel model) {
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        mRecycleGank.setLayoutManager(manager);
+
+        adapter=new GanApiAdapter(this,model.getData(),R.layout.gank_item);
+        mRecycleGank.setAdapter(adapter);
+        Toast.makeText(this, model.getPage() + "", Toast.LENGTH_SHORT).show();
 
     }
 }
